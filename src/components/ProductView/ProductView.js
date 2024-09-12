@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductListItem from "../ProductListItem";
 import ProductDetails from "../ProductDetails";
 import './ProductView.css'
@@ -8,6 +8,13 @@ function ProductView({ products }) {
   const [sideOpen, setSideOpen] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState();
 
+  useEffect(() => {
+    setSideOpen(true);
+  }, [selectedProduct]);
+
+  useEffect(() => {
+    setSelectedProduct();
+  }, [sideOpen]);
   return (
     <div className="product-view">
       <div className="product-main-area">
@@ -18,7 +25,7 @@ function ProductView({ products }) {
               key={item.id}
               product={item}
               onClick={() => {
-                setSelectedProduct(selectedProduct === item? null: item);
+                setSelectedProduct(selectedProduct === item ? null : item);
               }}
               isSelected={selectedProduct === item}
             />
